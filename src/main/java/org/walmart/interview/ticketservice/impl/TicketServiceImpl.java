@@ -19,7 +19,7 @@ public class TicketServiceImpl implements TicketService {
 
 	private Venue venue;
 
-	public Map<Integer, SeatHold> holdsMap;
+	private Map<Integer, SeatHold> holdsMap;
 
 	private AtomicInteger uniqueId;
 
@@ -29,6 +29,14 @@ public class TicketServiceImpl implements TicketService {
 		this.venue = new Venue(rows, cols);
 		this.holdsMap = new HashMap<>();
 		this.uniqueId = new AtomicInteger(Integer.MIN_VALUE);
+	}
+	
+	public Map<Integer, SeatHold> getHoldsMap() {
+		return holdsMap;
+	}
+
+	public void setHoldsMap(Map<Integer, SeatHold> holdsMap) {
+		this.holdsMap = holdsMap;
 	}
 
 	public int numSeatsAvailable() {
@@ -53,7 +61,6 @@ public class TicketServiceImpl implements TicketService {
 		if (numSeats > numberOfAvaialbleSeats) {
 			throw new Exception("Not enough seats available");
 		} else {
-			System.out.println("Holding seats: ");
 			SeatHold hold = holdSeats(numSeats, customerEmail);
 			this.holdsMap.put(hold.getId(), hold);
 			return hold;
@@ -106,7 +113,6 @@ public class TicketServiceImpl implements TicketService {
 			for (Map.Entry<Integer, SeatHold> entry : holdsMap.entrySet()) {
 				SeatHold seatHold = entry.getValue();
 				if (Instant.now().isAfter(seatHold.getCreationTimeStamp().plusSeconds(EXPIRY_IN_SECONDS))) {
-					System.out.println("no here");
 					seatHold.getSelectedSeats().forEach(seat -> {
 						seats[seat.getRow()][seat.getCol()].setState(SeatState.AVAILABLE);
 					});

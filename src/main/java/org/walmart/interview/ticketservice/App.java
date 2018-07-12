@@ -3,10 +3,7 @@ package org.walmart.interview.ticketservice;
 import org.walmart.interview.ticketservice.impl.TicketServiceImpl;
 import org.walmart.interview.ticketservice.model.SeatHold;
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     public static void main( String[] args) throws InterruptedException
@@ -20,21 +17,21 @@ public class App
 			System.out.println(e.getMessage());
 		}
         System.out.println("# of available seats: (Expected 185): " + impl.numSeatsAvailable());
-        System.out.println("# of holds " + impl.holdsMap.size());
+        System.out.println("# of holds " + impl.getHoldsMap().size());
         Thread.sleep(12000);
         System.out.println("# of available seats: (Expected 200): " + impl.numSeatsAvailable());
-        System.out.println("# of holds " + impl.holdsMap.size());
+        System.out.println("# of holds " + impl.getHoldsMap().size());
         
         try {
 			SeatHold seatHold = impl.findAndHoldSeats(20, "ashwin@email.com");
-			System.out.println("# of holds (expected 1): " + impl.holdsMap.size());
+			System.out.println("# of holds (expected 1): " + impl.getHoldsMap().size());
 			
 			System.out.println(impl.reserveSeats(seatHold.getId(), "ashwin@email.com"));
-			System.out.println("# of holds (expected 0): " + impl.holdsMap.size());
+			System.out.println("# of holds (expected 0): " + impl.getHoldsMap().size());
 			
 	        Thread.sleep(12000);
 	        System.out.println("# of available seats: (Expected 180): " + impl.numSeatsAvailable());
-	        System.out.println("# of holds (expected 0): " + impl.holdsMap.size());
+	        System.out.println("# of holds (expected 0): " + impl.getHoldsMap().size());
 	        
 	        
 	        
