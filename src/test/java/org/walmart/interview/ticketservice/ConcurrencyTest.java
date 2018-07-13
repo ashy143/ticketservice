@@ -10,11 +10,22 @@ import org.walmart.interview.ticketservice.impl.TicketServiceImpl;
 import com.anarsoft.vmlens.concurrent.junit.ConcurrentTestRunner;
 import com.anarsoft.vmlens.concurrent.junit.ThreadCount;
 
+
+/**
+ * @author ashwi
+ *
+ */
 @RunWith(ConcurrentTestRunner.class)
 public class ConcurrencyTest {
 	
 	private TicketServiceImpl ticketService = new TicketServiceImpl(4,4);
 	 
+	 
+    /**
+     * Concurrently make 3 calls to findAndHoldSeats and assert in @After block for # of seats.
+     * This will help to test if tickets hold/reserve works as expected in concurrency. 
+     * @throws Exception
+     */
     @Test
     @ThreadCount(3)
     public void holdSeatsConcurrentTest() throws Exception {
