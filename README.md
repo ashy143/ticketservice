@@ -1,5 +1,5 @@
 # ticketservice
-Ticket Servicing system
+Clone the project and run the below commands from root directory of master branch.
 
 ```
 # build
